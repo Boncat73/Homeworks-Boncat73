@@ -209,4 +209,69 @@ print(f"The factorial of {number} is {result}.")
 print("-----")
 
 # exercise 14
-#
+# Створіть лямбда-функцію, яка підносить задане число до квадрата
+square = lambda x: x ** 2
+
+number = 5
+squared_number = square(number)
+print(f'The square of {number} is {squared_number}')
+
+print('-----')
+
+# exercise 15
+# Використання лямбда-виразу з filter()функцією для 
+# отримання всіх парних чисел зі списку
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+print(f'The even numbers in the list are: {even_numbers}')
+
+print('-----')
+
+# exercise 16
+# Використання лямбда-виразу з map()функцією для 
+# подвоєння кожного елемента у списку
+numbers = [1, 2, 3, 4, 5]
+
+doubled_numbers = list(map(lambda x: x * 2, numbers))
+print(f'The doubled numbers are: {doubled_numbers}')
+
+print('-----')
+
+# exercise 17
+# Використання лямбда-виразу з sorted()функцією 
+# для сортування списку кортежів на основі другого елемента
+data = [('apple', 5), ('banana', 2), ('cherry', 8), ('date', 1)]
+
+sorted_data = sorted(data, key = lambda item: item[1])
+print(f'The sorted list of tuples based on the second element is: {sorted_data}')
+
+# exercise 18
+# Створення функції вищого порядку
+def apply_operation(func, x, y):
+    # Applies a given function to two numbers
+    # Args:
+    #   func: the function to apply (should take two arguments)
+    #   x: the first number
+    #   y: the second number
+    # Returns:
+    #   the result of calling func(x, y)
+    return func(x, y)
+
+# demonstrate with addition using a regular function
+def add(a, b):
+    return a + b
+
+result_add = apply_operation(add, 5, 3)
+print(f'Result of addition: {result_add}')
+
+# demonstrate with subtraction using a lambda function
+subtract = lambda a, b: a - b
+result_subtract = apply_operation(subtract, 10, 4)
+print(f'Result of subtraction: {result_subtract}')
+
+# demonstrate with multiplication using another lambda function
+multiply = lambda a, b: a * b
+reult_multiply = apply_operation(multiply, 2, 6)
+print(f'Result of multiplication: {reult_multiply}')
+
