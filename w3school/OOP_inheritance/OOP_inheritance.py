@@ -59,6 +59,9 @@ x = Student('Vasy', 'Bondarevskyi', 2019)
 x.welcome()
 
 # базове успадкування
+# Створіть клас Vehicle (Транспортний засіб) з атрибутами make (марка) 
+# та year (рік). Створіть дочірній клас Car (Автомобіль), який 
+# успадковує Vehicle і додає атрибут fuel_type (тип пального).
 class Vehicle:
     def __init__(self, make, year):
         self.make = make
@@ -75,6 +78,9 @@ print(f'{my_car.make},{my_car.year},{my_car.fuel_type}')
 print('-----')
 
 # перевизначення методів
+# Створіть клас Animal з методом speak(), який повертає 
+# "Тварина видає звук". Створіть класи Dog та Cat, які перевизначають 
+# цей метод, щоб вони повертали "Гав!" та "Мяу!" відповідно.
 class Animal:
     def speak(self):
         return 'Animal has a voice.'
@@ -94,6 +100,9 @@ for animal in animals:
 print('-----')
 
 # робота super() у методах
+# Створіть клас Employee (Співробітник) з методом get_details(), 
+# що повертає ім'я. Створіть клас Manager, який додає до результату 
+# get_details() фразу " (Менеджер)".
 class Employee:
     def __init__(self, name):
         self.name = name
@@ -101,17 +110,20 @@ class Employee:
     def get_details(self):
         return self.name
     
-class Managar(Employee):
+class Manager(Employee):
     def get_details(self):
         parent_details = super().get_details()
         return f'{parent_details} (Manager)'
     
-m = Managar('Vasyl')
+m = Manager('Vasyl')
 print(m.get_details())
     
 print('-----')
 
 # ієрархія класів (багаторівневе успадкування)
+# Реалізуйте ланцюжок успадкування: Device -> Computer -> Laptop. 
+# Кожен наступний клас повинен додавати специфічну характеристику 
+# (наприклад: brand, processor, battery_life).
 class Device:
     def __init__(self, brand):
         self.brand = brand
@@ -132,6 +144,9 @@ print(f'Brand: {my_laptop.brand}, CPU: {my_laptop.processor}, Battery: {my_lapto
 print('-----')
 
 # множинне успадкування
+# Створіть два класи: Flyable (здатний літати) з методом fly() та 
+# Swimmable (здатний плавати) з методом swim(). Створіть клас Duck (Качка),
+# який успадковує обидва класи.
 class Flyable:
     def fly(self):
         return 'I am flying!'
