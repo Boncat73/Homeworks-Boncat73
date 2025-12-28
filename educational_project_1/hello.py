@@ -1,0 +1,33 @@
+from flask import Flask
+
+app = Flask(__name__)
+
+# приклад як на один і той же обробник "вішати" 
+# кілька URL:
+@app.route("/index")
+@app.route("/")
+def index():
+    return "index"
+
+@app.route("/about")
+def about():
+    return "<h1>About Us</h1>"
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+# from markupsafe import escape
+
+# app = Flask(__name__)
+
+# @app.route("/")
+# def hello_world():
+#     return "<p>Hello, World!</p>"
+
+# @app.route("/hello")
+# def hello():
+#     name = request.args.get("name", "Flask")
+#     return f"Hello, {escape(name)}!"
+
+
+
