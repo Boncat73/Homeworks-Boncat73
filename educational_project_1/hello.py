@@ -4,15 +4,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "index"
+    return "<h1>Заголовок h1</h1>"
 
-@app.route("/contacts")
-def contacts():
-    return "contacts"
+# @app.route("/contacts")
+# def contacts():
+#     return "contacts"
 
-@app.route("/about")
-def about():
-    return "about"
+# @app.route("/about")
+# def about():
+#     return "about"
 
 # приклад як на один і той же обробник "вішати" 
 # кілька URL:
