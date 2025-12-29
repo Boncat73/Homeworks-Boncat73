@@ -1,24 +1,28 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, flash
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'#потрібно для роботи flash-повідомлень
 
 # Додаємо маршрут для головної сторінки
 @app.route('/')
 def index():
     return render_template('login.html')
 
-@app.route('/success/<name>')
-def success(name):
-    return 'Welcome , %s!' % name
-
-@app.route('/login', methods = ['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        user = request.form['nm']
-        return redirect(url_for('success',name = user))
-    else:
-        user = request.args.get('nm')
-        return redirect(url_for('success',name = user))
+        user = request.form.get('nm', '').strip() # Отримуємо ім'я та видаляємо пробіли
+        
+        if not user: # Перевірка: якщо рядок порожній
+            flash("Будь ласка, введіть ваше ім'я!")
+            return redirect(url_for('index'))
+            
+        return redirect(url_for('success', name=user))
+    return redirect(url_for('index'))
+
+@app.route('/success/<name>')
+def success(name):
+    return render_template('welcome.html', user_name=name)
     
 
 # @app.route("/")
