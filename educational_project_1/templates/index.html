@@ -4,35 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сайт створено за допомогою Flask.</title>
-    <style>
-    body {
-        /* Використовуємо подвійні лапки для url_for і одинарні всередині */
-        background-image: url("{{ url_for('static', filename='images/apple.jpg') }}");
-        
-        /* Важливі налаштування, щоб картинку було видно */
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        
-        /* Твій попередній код для центрування форми */
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    .form-container {
-        background: rgba(255, 255, 255, 0.85); /* Білий фон із прозорістю 85% */
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-    }
-</style>
 </head>
 <body>
-    <h1>Заголовок h1</h1>
-    <p>Текст сторінки.</p>
+    <div class="form-container">
+        <h1>Заголовок h1</h1>
+        <p>Текст сторінки.</p>
+    </div>
 </body>
 </html>

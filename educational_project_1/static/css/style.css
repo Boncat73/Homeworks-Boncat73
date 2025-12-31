@@ -1,0 +1,101 @@
+/* 1. Налаштування всього екрану */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Фонове зображення */
+    background-image: url("../images/apple.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+    /* Центрування контенту */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 2. Контейнер форми (Ефект матового скла) */
+.form-container {
+    background: rgba(255, 255, 255, 0.15); /* Прозорість */
+    backdrop-filter: blur(15px);           /* Розмиття */
+    -webkit-backdrop-filter: blur(15px);    /* Підтримка Safari/Mac */
+    
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    color: white;
+}
+
+/* 3. Заголовки */
+h1 {
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 4. Поля вводу (Input) */
+input[type="text"], 
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    box-sizing: border-box; /* Щоб падінги не вилазили за межі */
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #2ecc71;
+    box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
+}
+
+/* 5. Кнопка (Анімована) */
+input[type="submit"], 
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #2ecc71;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -webkit-appearance: none; /* Для Safari на Mac */
+}
+
+input[type="submit"]:hover {
+    background-color: #27ae60;
+    transform: translateY(-3px); /* Підстрибування вгору */
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+}
+
+input[type="submit"]:active {
+    transform: translateY(0); /* Повернення при натисканні */
+}
+
+/* 6. Повідомлення про помилки */
+.error {
+    color: #ff6b6b;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}

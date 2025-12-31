@@ -3,29 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Вхід</title>
-    <style>
-        .error { color: #e74c3c; font-weight: bold; margin-bottom: 10px; }
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .form-container { border: 1px solid #ccc; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="form-container">
-        <h2>Введіть дані</h2>
+    <h1>Авторизація</h1>
+    
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
 
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            {% for message in messages %}
-                <div class="error">{{ message }}</div>
-            {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        <form action="/login" method="post">
-            <p>Ваше ім'я:</p>
-            <p><input type="text" name="nm" placeholder="Наприклад, Олексій"/></p>
-            <p><input type="submit" value="Увійти" /></p>
-        </form>
-    </div>
+    <form method="POST">
+        <input type="text" name="username" placeholder="Логін" required>
+        <input type="password" name="password" placeholder="Пароль" required>
+        <input type="submit" value="Увійти">
+    </form>
+</div>
 </body>
 </html>
