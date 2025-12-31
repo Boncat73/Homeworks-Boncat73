@@ -1,9 +1,0 @@
-body {
-    background-image: url('../images/background.jpg'); /* Шлях від CSS файлу до картинки */
-    background-size: cover;        /* Розтягує картинку на весь екран */
-    background-position: center;   /* Центрує зображення */
-    background-repeat: no-repeat;  /* Не дублює картинку */
-    background-attachment: fixed;  /* Картинка не рухається при скролі */
-    margin: 0;
-    height: 100vh;
-}
