@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Візитка</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <h1>Привіт, я {{ user.name }}</h1>
+            <p>{{ user.role }}</p>
+            <a href="#contact" class="btn">Зв'язатися</a>
+        </div>
+    </header>
+
+    <section id="about" class="container">
+        <h2>Про мене</h2>
+        <p>{{ user.bio }}</p>
+    </section>
+
+    <section id="skills" class="container">
+        <h2>Навички</h2>
+        <ul class="skills-list">
+            {% for skill in user.skills %}
+                <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section id="contact" class="container">
+        <h2>Напишіть мені</h2>
+        <form method="POST" class="contact-form">
+            <input type="text" name="name" placeholder="Ваше ім'я" required>
+            <input type="email" name="email" placeholder="Ваш Email" required>
+            <textarea name="message" placeholder="Ваше повідомлення" required></textarea>
+            <button type="submit" class="btn-submit">Відправити</button>
+        </form>
+    </section>
+
+    <footer id="contact">
+        <p>bonvas73@gmail.com</p>
+    </footer>
+</body>
+</html>
