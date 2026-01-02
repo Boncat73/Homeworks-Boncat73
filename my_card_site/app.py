@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect, url_for
 
 app = Flask(__name__)
+app.secret_key = 'super-secret-key-123'  # Це потрібно для роботи flash
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -12,15 +13,15 @@ def index():
     }
 
     if request.method == 'POST':
-        # Отримуємо дані з форми
         name = request.form.get('name')
-        email = request.form.get('email')
-        message = request.form.get('message')
+        # Логіка обробки (наприклад, запис у файл або консоль)
+        print(f"Повідомлення від {name}")
+
+        # Створюємо flash-повідомлення
+        flash(f"Дякую, {name}! Ваше повідомлення успішно надіслано.", "success")
         
-        print(f"Нове повідомлення від {name} ({email}): {message}")
-        # Тут можна додати логіку збереження в базу або відправки на email
-        
-        return f"<h1>Дякую, {name}! Ваше повідомлення отримано.</h1><a href='/'>Назад</a>"
+        # Перенаправляємо назад на головну, щоб форма очистилася
+        return redirect(url_for('index'))
 
     return render_template('index.html', user=user_info)
 
