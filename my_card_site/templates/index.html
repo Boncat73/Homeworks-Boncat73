@@ -53,5 +53,27 @@
     <footer id="contact">
         <p>bonvas73@gmail.com</p>
     </footer>
+
+    <script>
+    // Чекаємо, поки сторінка повністю завантажиться
+    document.addEventListener('DOMContentLoaded', function() {
+        // Знаходимо всі елементи з класом alert
+        const alerts = document.querySelectorAll('.alert');
+        
+        alerts.forEach(function(alert) {
+            // Встановлюємо таймер на 3000 мс (3 секунди)
+            setTimeout(function() {
+                // Додаємо плавне зникнення через зміну прозорості
+                alert.style.transition = "opacity 0.5s ease";
+                alert.style.opacity = "0";
+                
+                // Після завершення анімації (0.5с) повністю видаляємо елемент
+                setTimeout(function() {
+                    alert.remove();
+                }, 500);
+            }, 3000);
+        });
+    });
+</script>
 </body>
 </html>
