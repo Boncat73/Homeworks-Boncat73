@@ -74,6 +74,18 @@
             }, 3000);
         });
     });
+
+    document.querySelector('.btn').addEventListener('click', function(e) {
+    e.preventDefault(); // Скасовуємо стандартний миттєвий перехід
+    const targetId = this.getAttribute('href'); // Отримуємо #contact
+    const targetElement = document.querySelector(targetId);
+    
+    // Плавно прокручуємо до елемента
+    targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+});
 </script>
 </body>
 </html>
