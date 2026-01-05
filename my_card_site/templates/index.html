@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя Візитка</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Моя Візитка | {{ user.name }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
+            <div id="flash-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <i class="fa-solid fa-check-circle"></i> {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
         {% endif %}
     {% endwith %}
-    
+
     <header class="hero">
         <div class="container">
             <h1>Привіт, я {{ user.name }}</h1>
@@ -27,65 +31,70 @@
     </header>
 
     <section id="about" class="container">
-        <h2>Про мене</h2>
+        <h2><i class="fa-solid fa-user"></i> Про мене</h2>
         <p>{{ user.bio }}</p>
     </section>
 
     <section id="skills" class="container">
-        <h2>Навички</h2>
-        <ul class="skills-list">
+        <h2><i class="fa-solid fa-laptop-code"></i> Навички</h2>
+        <div class="skills-grid">
             {% for skill in user.skills %}
-                <li>{{ skill }}</li>
+                <div class="skill-card">
+                    <i class="fa-solid fa-code"></i> {{ skill }}
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     </section>
 
     <section id="contact" class="container">
-        <h2>Напишіть мені</h2>
+        <h2><i class="fa-solid fa-envelope-open-text"></i> Напишіть мені</h2>
         <form method="POST" class="contact-form">
             <input type="text" name="name" placeholder="Ваше ім'я" required>
             <input type="email" name="email" placeholder="Ваш Email" required>
             <textarea name="message" placeholder="Ваше повідомлення" required></textarea>
-            <button type="submit" class="btn-submit">Відправити</button>
+            <button type="submit" class="btn-submit">
+                Відправити повідомлення
+            </button>
         </form>
     </section>
 
-    <footer id="contact">
-        <p>bonvas73@gmail.com</p>
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 {{ user.name }}. Усі права захищені.</p>
+            <p>
+                <i class="fa-solid fa-envelope"></i> Email: 
+                <a href="mailto:твій-email@example.com" class="footer-link">bonvas73@gmail.com</a>
+            </p>
+            <p>
+                <a href="/admin" class="footer-link" style="font-size: 0.8rem; opacity: 0.5;">
+                    <i class="fa-solid fa-lock"></i> Адмін-панель
+                </a>
+            </p>
+        </div>
     </footer>
 
     <script>
-    // Чекаємо, поки сторінка повністю завантажиться
-    document.addEventListener('DOMContentLoaded', function() {
-        // Знаходимо всі елементи з класом alert
-        const alerts = document.querySelectorAll('.alert');
-        
-        alerts.forEach(function(alert) {
-            // Встановлюємо таймер на 3000 мс (3 секунди)
-            setTimeout(function() {
-                // Додаємо плавне зникнення через зміну прозорості
-                alert.style.transition = "opacity 0.5s ease";
-                alert.style.opacity = "0";
-                
-                // Після завершення анімації (0.5с) повністю видаляємо елемент
+        // 1. Плавне зникнення повідомлень через 3 секунди
+        window.onload = function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
                 setTimeout(function() {
-                    alert.remove();
-                }, 500);
-            }, 3000);
-        });
-    });
+                    alert.style.transition = "opacity 0.6s ease";
+                    alert.style.opacity = "0";
+                    setTimeout(() => alert.remove(), 600);
+                }, 3000);
+            });
+        };
 
-    document.querySelector('.btn').addEventListener('click', function(e) {
-    e.preventDefault(); // Скасовуємо стандартний миттєвий перехід
-    const targetId = this.getAttribute('href'); // Отримуємо #contact
-    const targetElement = document.querySelector(targetId);
-    
-    // Плавно прокручуємо до елемента
-    targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-    });
-});
-</script>
+        // 2. Додатковий плавний скрол для кнопок (для старих браузерів)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адмін-панель</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .admin-table th, .admin-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .admin-table th {
+            background: #764ba2;
+            color: white;
+            font-weight: bold;
+        }
+        .btn-delete {
+            color: #ff4d4d;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .btn-delete:hover {
+            color: #cc0000;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h1><i class="fa-solid fa-lock"></i> Панель керування</h1>
+        <a href="/" class="footer-link">← На головну</a>
+        
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Ім'я</th>
+                    <th>Email</th>
+                    <th>Повідомлення</th>
+                    <th style="text-align:center;">Дія</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for msg in messages %}
+                <tr>
+                    <td>{{ msg.date_sent.strftime('%d.%m %H:%M') }}</td>
+                    <td>{{ msg.name }}</td>
+                    <td>{{ msg.email }}</td>
+                    <td>{{ msg.text }}</td>
+                    <td style="text-align:center;">
+                        <a href="{{ url_for('delete_message', id=msg.id) }}" 
+                            class="btn-delete"
+                            onclick="return confirm('Ви впевнені, що хочете видалити це повідомлення?')">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Скрипт для зникнення сповіщень
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(a => {
+                a.style.transition = "opacity 0.5s";
+                a.style.opacity = "0";
+                setTimeout(() => a.remove(), 500);
+            });
+        }, 3000);
+    </script>
+</body>
+</html>
