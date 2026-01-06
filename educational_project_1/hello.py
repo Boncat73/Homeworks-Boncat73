@@ -1,41 +1,28 @@
-from flask import Flask, render_template, url_for, redirect, request, flash
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey'#потрібно для роботи flash-повідомлень
 
-# Додаємо маршрут для головної сторінки
+# Маршрут для головної сторінки з логіном
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def login_page():  # Змінив назву з index на login_page, щоб не було конфлікту
     error = None
     if request.method == 'POST':
-        # Отримуємо дані з полів форми
         username = request.form.get('username')
         password = request.form.get('password')
 
-        # Проста перевірка (логін: bonvas73@gmail.com, пароль: qwert)
         if username == 'bonvas73@gmail.com' and password == 'qwert':
-            return redirect(url_for('dashboard')) # Тут може бути redirect на іншу сторінку
+            return redirect(url_for('dashboard'))
         else:
             error = "Невірний логін або пароль!"
             
     return render_template('login.html', error=error)
 
+# Маршрут для сторінки після успішного входу
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    return "Вітаємо на Dashboard! Ви успішно увійшли."
 
-@app.route("/contacts")
-def contacts():
-    return "contacts"
-
-@app.route("/about")
-def about():
-    return "about"
-
-@app.route("/welcome")
-def welcome():
-    return "welcome"
-
-if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+if __name__ == '__main__':
+    # Використовуємо 5001, щоб оминути системну службу macOS
+    app.run(port=5001, debug=True)
 
