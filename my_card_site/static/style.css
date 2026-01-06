@@ -116,3 +116,85 @@ body {
     margin-right: 10px;
     color: #667eea;
 }
+
+/* стилі для панелі керування адміном*/
+.admin-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.admin-table th, .admin-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-table th {
+    background: #764ba2;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.admin-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* cтилі для кнопок дій */
+.actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-edit {
+    color: #4e73df;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.btn-edit:hover {
+    color: #224abe;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    color: #e74a3b;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    color: #be2617;
+    transform: translateY(-2px);
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
