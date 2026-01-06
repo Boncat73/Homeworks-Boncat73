@@ -17,7 +17,7 @@ body {
     text-align: center; 
 }
 
-/* Hero Section */
+/* cекція hero */
 .hero { 
     height: 60vh; 
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
@@ -45,7 +45,7 @@ body {
     transform: scale(1.1); 
 }
 
-/* Skills Grid */
+/* skills grid */
 .skills-grid { 
     display: flex; 
     flex-wrap: wrap; 
@@ -62,7 +62,7 @@ body {
     font-weight: bold; 
 }
 
-/* Form */
+/* form */
 .contact-form { 
     display: flex; 
     flex-direction: column; 
@@ -87,7 +87,7 @@ body {
     font-weight: bold; 
 }
 
-/* Alerts */
+/* alerts */
 .alert { 
     position: fixed; 
     top: 20px; 
@@ -103,7 +103,7 @@ body {
 
 .skill-card i {
     margin-right: 8px;
-    color: #ffd700; /* Золотистий колір для іконок навичок */
+    color: #ffd700; /* золотистий колір для іконок навичок */
 }
 
 .fa-trash:hover {

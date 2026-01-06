@@ -29,7 +29,7 @@ with app.app_context():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # інформація про адміна
+    # інформація про адміна (dictionary and list)
     user_info = {
         "name": "Василь",
         "role": "Python Developer",
@@ -63,7 +63,7 @@ def admin():
 
 @app.route('/delete/<int:id>')
 def delete_message(id):
-    # пошук повідомлення за ID
+    # пошук повідомлення за id
     message_to_delete = Message.query.get_or_404(id)
     try:
         db.session.delete(message_to_delete)

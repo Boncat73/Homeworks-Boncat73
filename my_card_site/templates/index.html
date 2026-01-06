@@ -74,7 +74,7 @@
     </footer>
 
     <script>
-        // 1. Плавне зникнення повідомлень через 3 секунди
+        // плавне зникнення повідомлень через 3 секунди
         window.onload = function() {
             const alerts = document.querySelectorAll('.alert');
             alerts.forEach(function(alert) {
@@ -86,7 +86,7 @@
             });
         };
 
-        // 2. Додатковий плавний скрол для кнопок (для старих браузерів)
+        // додатковий плавний скрол для кнопок (для старих браузерів)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
