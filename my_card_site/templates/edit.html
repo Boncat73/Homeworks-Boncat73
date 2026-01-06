@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Редагувати повідомлення</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Редагування повідомлення #{{ message.id }}</h1>
+        <form method="POST" class="contact-form">
+            <input type="text" name="name" value="{{ message.name }}" required>
+            <input type="email" name="email" value="{{ message.email }}" required>
+            <textarea name="message" required>{{ message.text }}</textarea>
+            <button type="submit" class="btn-submit">Зберегти зміни</button>
+            <a href="/admin" style="margin-top: 10px; display: block;">Скасувати</a>
+        </form>
+    </div>
+</body>
+</html>

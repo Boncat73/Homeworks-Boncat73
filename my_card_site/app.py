@@ -74,5 +74,26 @@ def delete_message(id):
     
     return redirect(url_for('admin'))
 
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit_message(id):
+    # Знаходимо повідомлення або видаємо помилку 404
+    msg = Message.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        # Отримуємо нові дані з форми (це аналог PATCH/PUT)
+        msg.name = request.form.get('name')
+        msg.email = request.form.get('email')
+        msg.text = request.form.get('message')
+        
+        try:
+            db.session.commit() # Зберігаємо зміни
+            flash("Повідомлення успішно оновлено!", "success")
+            return redirect(url_for('admin'))
+        except Exception as e:
+            flash(f"Помилка при оновленні: {e}", "danger")
+    
+    # Якщо метод GET — показуємо сторінку з формою редагування
+    return render_template('edit.html', message=msg)
+
 if __name__ == '__main__':
     app.run(debug=True)
