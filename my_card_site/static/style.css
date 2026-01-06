@@ -198,3 +198,21 @@ body {
     text-decoration: underline;
 }
 
+.admin-nav {
+    margin-bottom: 25px;
+}
+
+.logout-link {
+    color: #e74a3b; /* Червоний колір */
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.logout-link:hover {
+    color: #be2617;
+    text-decoration: underline;
+}

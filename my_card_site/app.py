@@ -1,19 +1,23 @@
 import os
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
+# Секретний ключ потрібен для роботи сесій (авторизації)
 app.secret_key = 'super-secret-key-123'
 
-# налаштування бази даних SQLite
+# Налаштування бази даних SQLite
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'messages.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# модель повідомлення (таблиця в базі)
+# Пароль для входу в адмін-панель
+ADMIN_PASSWORD = 'Bn09091973Bn'  # Зміни на свій
+
+# --- МОДЕЛЬ ДАНИХ ---
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -21,15 +25,14 @@ class Message(db.Model):
     text = db.Column(db.Text, nullable=False)
     date_sent = db.Column(db.DateTime, default=datetime.utcnow)
 
-# створення бази даних (якщо її ще немає)
+# Створення бази даних
 with app.app_context():
     db.create_all()
 
-# маршрути
+# --- МАРШРУТИ КОРИСТУВАЧА ---
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # інформація про адміна (dictionary and list)
     user_info = {
         "name": "Василь",
         "role": "Python Developer",
@@ -42,7 +45,6 @@ def index():
         email = request.form.get('email')
         message_text = request.form.get('message')
 
-        # збереження в базу 
         try:
             new_msg = Message(name=name, email=email, text=message_text)
             db.session.add(new_msg)
@@ -55,15 +57,62 @@ def index():
 
     return render_template('index.html', user=user_info)
 
+# --- МАРШРУТИ АВТОРИЗАЦІЇ ---
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        entered_password = request.form.get('password')
+        if entered_password == ADMIN_PASSWORD:
+            session['logged_in'] = True
+            flash("Ви успішно увійшли до панелі керування!", "success")
+            return redirect(url_for('admin'))
+        else:
+            flash("Невірний пароль! Спробуйте ще раз.", "danger")
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash("Ви вийшли із системи.", "info")
+    return redirect(url_for('index'))
+
+# --- МАРШРУТИ АДМІНІСТРАТОРА (ЗАХИЩЕНІ CRUD) ---
+
 @app.route('/admin')
 def admin():
-    # отримую усі повідомлення, нові зверху
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    
     all_messages = Message.query.order_by(Message.date_sent.desc()).all()
     return render_template('admin.html', messages=all_messages)
 
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit_message(id):
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+        
+    msg = Message.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        msg.name = request.form.get('name')
+        msg.email = request.form.get('email')
+        msg.text = request.form.get('message')
+        
+        try:
+            db.session.commit()
+            flash("Повідомлення успішно оновлено!", "success")
+            return redirect(url_for('admin'))
+        except Exception as e:
+            flash(f"Помилка при оновленні: {e}", "danger")
+    
+    return render_template('edit.html', message=msg)
+
 @app.route('/delete/<int:id>')
 def delete_message(id):
-    # пошук повідомлення за id
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+        
     message_to_delete = Message.query.get_or_404(id)
     try:
         db.session.delete(message_to_delete)
@@ -73,27 +122,6 @@ def delete_message(id):
         flash(f"Не вдалося видалити: {e}", "danger")
     
     return redirect(url_for('admin'))
-
-@app.route('/edit/<int:id>', methods=['GET', 'POST'])
-def edit_message(id):
-    # Знаходимо повідомлення або видаємо помилку 404
-    msg = Message.query.get_or_404(id)
-    
-    if request.method == 'POST':
-        # Отримуємо нові дані з форми (це аналог PATCH/PUT)
-        msg.name = request.form.get('name')
-        msg.email = request.form.get('email')
-        msg.text = request.form.get('message')
-        
-        try:
-            db.session.commit() # Зберігаємо зміни
-            flash("Повідомлення успішно оновлено!", "success")
-            return redirect(url_for('admin'))
-        except Exception as e:
-            flash(f"Помилка при оновленні: {e}", "danger")
-    
-    # Якщо метод GET — показуємо сторінку з формою редагування
-    return render_template('edit.html', message=msg)
 
 if __name__ == '__main__':
     app.run(debug=True)
