@@ -11,13 +11,15 @@
     </style>
 </head>
 <body>
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                    <i class="fa-solid fa-bell"></i> {{ message }}
+    <!--Jinja2 (мова шаблонів):тут показує користувачеві 
+    "спливаючі" повідомлення,які передаються з app.py-->
+    {% with messages = get_flashed_messages(with_categories=true) %} <!--Flask дістає усі повідомлення за допомогою flash()-->
+        {% if messages %} <!--браузер перевіряє наявність повідомлень для показу-->
+            {% for category, message in messages %} <!--цикл виводить по черзі кожне повідомлення,якщо вони є-->
+                <div class="alert alert-{{ category }}"> <!--поєднання HTML та CSS: green for success,red for danger-->
+                    <i class="fa-solid fa-bell"></i> {{ message }} <!--тут текст самого повідомлення-->
                 </div>
+            <!--закриваючі теги,які кажуть шаблонізатору,де закінчуються цикл та логічна перевірка-->
             {% endfor %}
         {% endif %}
     {% endwith %}
@@ -28,6 +30,10 @@
         <h1><i class="fa-solid fa-gears"></i> Панель керування</h1>
         <p>Тут ви можете переглядати, редагувати або видаляти повідомлення користувачів.</p>
 
+        <!--"Тут реалізовано динамічний вивід даних за допомогою шаблонізатора Jinja2. 
+        Використовуємо цикл for для генерації рядків таблиці.Застосовуємо форматування 
+        об'єктів datetime через метод strftime та реалізуємо безпечне видалення записів через 
+        передачу унікального ID повідомлення в URL-адресу."-->
         <table class="admin-table">
             <thead>
                 <tr>
