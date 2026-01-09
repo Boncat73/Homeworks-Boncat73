@@ -47,7 +47,7 @@ body {
 
 /* skills grid */
 .skills-grid { 
-    display: flex; 
+    display: flex; /* адаптивність відображення сайту на різних пристроях */
     flex-wrap: wrap; 
     justify-content: center; 
     gap: 10px; 
@@ -64,7 +64,7 @@ body {
 
 /* form */
 .contact-form { 
-    display: flex; 
+    display: flex; /* адаптивність відображення сайту на різних пристроях */
     flex-direction: column; 
     gap: 15px; 
     margin-top: 30px; 
@@ -156,7 +156,7 @@ body {
 
 /* cтилі для кнопок дій */
 .actions {
-    display: flex;
+    display: flex; /* адаптивність відображення сайту на різних пристроях */
     gap: 15px;
     justify-content: center;
 }
