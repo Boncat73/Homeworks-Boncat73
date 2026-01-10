@@ -20,10 +20,11 @@ body {
 /* cекція hero */
 .hero { 
     height: 60vh; 
+    /* плавний перехід кольорів від синього до фіолетового під кутом 135 градусів*/
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
     color: white; display: flex; 
-    align-items: center; 
-    justify-content: center; 
+    align-items: center; /* центрує по вертикалі */
+    justify-content: center; /* центрує по горизонталі */
 }
 
 .hero h1 { 
@@ -49,7 +50,7 @@ body {
 .skills-grid { 
     display: flex; /* адаптивність відображення сайту на різних пристроях */
     flex-wrap: wrap; 
-    justify-content: center; 
+    justify-content: center; /* Центрує по горизонталі */
     gap: 10px; 
     margin-top: 20px; 
 }
@@ -73,7 +74,7 @@ body {
 .contact-form input, .contact-form textarea { 
     padding: 12px; 
     border: 1px solid #ccc; 
-    border-radius: 8px; 
+    border-radius: 8px; /* заокруглені кути */
     font-family: inherit; 
 }
 
@@ -82,7 +83,7 @@ body {
     color: white; 
     border: none; 
     padding: 12px; 
-    border-radius: 8px; 
+    border-radius: 8px; /* заокруглені кути */
     cursor: pointer; 
     font-weight: bold; 
 }
@@ -96,7 +97,7 @@ body {
     background: #d4edda; 
     color: #155724; 
     padding: 15px 30px; 
-    border-radius: 8px; 
+    border-radius: 8px; /* заокруглені кути */
     box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
     z-index: 1000; 
 }
@@ -132,7 +133,7 @@ body {
     border-collapse: collapse;
     margin-top: 20px;
     background: white;
-    border-radius: 8px;
+    border-radius: 8px; /* заокруглені кути */
     overflow: hidden;
 }
 
@@ -158,18 +159,18 @@ body {
 .actions {
     display: flex; /* адаптивність відображення сайту на різних пристроях */
     gap: 15px;
-    justify-content: center;
+    justify-content: center; /* Центрує по горизонталі */
 }
 
 .btn-edit {
     color: #4e73df;
     font-size: 1.1rem;
-    transition: 0.3s;
+    transition: 0.3s; /* час анімації */
 }
 
 .btn-edit:hover {
     color: #224abe;
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* кнопка трохи підстрибує вгору */
 }
 
 .btn-delete {
@@ -183,7 +184,7 @@ body {
 
 .btn-delete:hover {
     color: #be2617;
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* кнопка трохи підстрибує вгору */
 }
 
 .back-link {
