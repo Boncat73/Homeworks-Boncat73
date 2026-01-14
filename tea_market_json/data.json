@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "name": "Ceylon Premium",
+        "sku": "CH-001",
+        "weight": 100,
+        "type": "чорний",
+        "price_retail": 120,
+        "price_wholesale": 95
+    },
+    {
+        "id": 2,
+        "name": "Ceylon Super",
+        "sku": "CH-002",
+        "weight": 150,
+        "type": "зелений",
+        "price_retail": 180.0,
+        "price_wholesale": 155.0
+    },
+    {
+        "id": 3,
+        "name": "Ceylon Middle",
+        "sku": "CH-003",
+        "weight": 75,
+        "type": "чорний",
+        "price_retail": 100.0,
+        "price_wholesale": 75.0
+    }
+]

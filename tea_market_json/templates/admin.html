@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Адмін-панель</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        form { margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Управління товарами</h1>
+
+    <form action="/add" method="post">
+        <input type="text" name="name" placeholder="Назва" required>
+        <input type="text" name="sku" placeholder="Артикул" required>
+        <input type="number" name="weight" placeholder="Вага (г)" required>
+        <select name="type">
+            <option value="зелений">Зелений</option>
+            <option value="чорний">Чорний</option>
+        </select>
+        <input type="number" step="0.01" name="price_retail" placeholder="Роздрібна ціна" required>
+        <input type="number" step="0.01" name="price_wholesale" placeholder="Гуртова ціна" required>
+        <button type="submit">Додати чай</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Назва</th>
+            <th>Артикул</th>
+            <th>Вага</th>
+            <th>Тип</th>
+            <th>Ціна (роздр)</th>
+            <th>Ціна (гурт)</th>
+            <th>Дії</th>
+        </tr>
+        {% for tea in teas %}
+        <tr>
+            <td>{{ tea.id }}</td>
+            <td>{{ tea.name }}</td>
+            <td>{{ tea.sku }}</td>
+            <td>{{ tea.weight }}г</td>
+            <td>{{ tea.type }}</td>
+            <td>{{ tea.price_retail }} грн</td>
+            <td>{{ tea.price_wholesale }} грн</td>
+            <td><a href="/delete/{{ tea.id }}">Видалити</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
