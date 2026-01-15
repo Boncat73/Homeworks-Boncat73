@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantSwap — Каталог Рослин</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f6; font-family: 'Montserrat', sans-serif; }
+        .hero-section { 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1470058869958-2a77ade41c02?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover; background-position: center;
+            color: white; padding: 60px 0; text-align: center; margin-bottom: 40px;
+        }
+        .plant-card {
+            border: none; border-radius: 20px; transition: 0.3s;
+            overflow: hidden; background: white;
+        }
+        .plant-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .status-dot {
+            height: 12px; width: 12px; border-radius: 50%; display: inline-block; margin-right: 5px;
+        }
+        .bg-available { background-color: #28a745; }
+        .bg-reserved { background-color: #ffc107; }
+        .bg-exchanged { background-color: #dc3545; }
+    </style>
+</head>
+<body>
+
+<div class="hero-section">
+    <div class="container">
+        <h1 class="display-4 fw-bold">🌿 Наші Рослини</h1>
+        <p class="lead">Знайдіть свою майбутню улюблену рослину для обміну</p>
+    </div>
+</div>
+
+<div class="container mb-4 text-center">
+    <div class="btn-group shadow-sm" role="group">
+        <a href="/" class="btn btn-outline-success px-4">Всі</a>
+        <a href="/?cat=Кімнатна" class="btn btn-outline-success px-4">🏠 Кімнатні</a>
+        <a href="/?cat=Вулична" class="btn btn-outline-success px-4">🌳 Вуличні</a>
+        <a href="/?cat=Сукулент" class="btn btn-outline-success px-4">🌵 Сукуленти</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for plant in plants %}
+        <div class="col-md-4 mb-4">
+            <div class="card plant-card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="card-title mb-0">{{ plant.name }}</h4>
+                        
+                        {% if plant.status == 'Доступно' %}
+                            <span class="badge rounded-pill bg-light text-success border border-success small">
+                                <span class="status-dot bg-available"></span> В наявності
+                            </span>
+                        {% elif plant.status == 'Заброньовано' %}
+                            <span class="badge rounded-pill bg-light text-warning border border-warning small">
+                                <span class="status-dot bg-reserved"></span> Чекає обміну
+                            </span>
+                        {% else %}
+                            <span class="badge rounded-pill bg-light text-danger border border-danger small">
+                                <span class="status-dot bg-exchanged"></span> Вже у нових руках
+                            </span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-2">
+                        <span class="badge bg-secondary opacity-75">{{ plant.category }}</span>
+                        <small class="text-muted ms-2 italic"><em>{{ plant.species }}</em></small>
+                    </div>
+                    
+                    <p class="card-text text-secondary small">{{ plant.description }}</p>
+                    
+                    {% if plant.care_instructions %}
+                    <div class="mt-3 p-2 bg-light rounded border-start border-success border-3">
+                        <small class="text-dark"><strong>Порада:</strong> {{ plant.care_instructions }}</small>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="card-footer bg-white border-0 pb-4">
+                    {% if plant.status == 'Обміняно' %}
+                        <button class="btn btn-secondary w-100 rounded-pill" disabled>
+                            🚫 Вже обміняно
+                        </button>
+                    {% elif plant.status == 'Заброньовано' %}
+                        <button class="btn btn-warning w-100 rounded-pill text-dark">
+                            ⏳ Стати в чергу
+                        </button>
+                    {% else %}
+                        <button class="btn btn-success w-100 rounded-pill">
+                            Запропонувати обмін
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<footer class="text-center py-5 text-muted">
+    <p>© 2026 PlantSwap Community. Користувацький інтерфейс.</p>
+</footer>
+
+</body>
+</html>
