@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Знайди Друга</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Знайди друга 🐾</h1>
+        <p>Допоможемо тваринкам повернутися додому</p>
+    </header>
+
+    <div class="container">
+        <nav>
+            {% if session['user_id'] %}
+                <span>Вітаємо, <b>{{ session['username'] }}</b>!</span>
+                <a href="/add">+ Подати оголошення</a>
+                <a href="/logout" class="logout-link">Вийти</a>
+            {% else %}
+                <a href="/login">Увійти</a>
+                <a href="/register">Реєстрація</a>
+            {% endif %}
+        </nav>
+
+        <hr>
+
+        {% for pet in pets %}
+            <div class="pet-card">
+                {% if pet.image_file %}
+                    <img src="{{ url_for('static', filename='uploads/' + pet.image_file) }}" alt="Фото тварини">
+                {% endif %}
+                
+                <div class="pet-content">
+                    <h2>{{ pet.title }}</h2>
+                    <p>{{ pet.description }}</p>
+                    <div class="contact-box">
+                        <strong>📞 Контакти:</strong> {{ pet.contact_info }}
+                    </div>
+                    {% if session['is_admin'] %}
+                        <a href="/admin/delete/{{ pet.id }}" class="admin-btn">Видалити оголошення</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <p style="text-align: center; color: #777;">Оголошень поки немає.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

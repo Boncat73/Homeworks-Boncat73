@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Нове оголошення</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header><h1>Подати оголошення</h1></header>
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            <label>Хто зник/знайдений?</label>
+            <input type="text" name="title" placeholder="Напр. Зник рудий кіт, район Центр" required>
+            
+            <label>Опис прикмет:</label>
+            <textarea name="description" rows="5" placeholder="Додайте деталі: ошийник, особливі плями тощо" required></textarea>
+            
+            <label>Додати фото тварини:</label>
+            <input type="file" name="photo" accept="image/*">
+            
+            <label>Ваш контакт:</label>
+            <input type="text" name="contact" placeholder="Номер телефону або Telegram" required>
+            
+            <button type="submit">Опублікувати</button>
+        </form>
+        <p><a href="/">← Скасувати</a></p>
+    </div>
+</body>
+</html>
