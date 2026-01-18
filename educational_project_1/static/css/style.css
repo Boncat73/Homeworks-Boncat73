@@ -1,28 +1,28 @@
-/* 1. Налаштування всього екрану */
+/* налаштування всього екрану */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     
-    /* Фонове зображення */
+    /* фонове зображення */
     background-image: url("../images/apple.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     
-    /* Центрування контенту */
+    /* центрування контенту */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-/* 2. Контейнер форми (Ефект матового скла) */
+/* контейнер форми (Ефект матового скла) */
 .form-container {
-    background: rgba(255, 255, 255, 0.15); /* Прозорість */
-    backdrop-filter: blur(15px);           /* Розмиття */
-    -webkit-backdrop-filter: blur(15px);    /* Підтримка Safari/Mac */
+    background: rgba(255, 255, 255, 0.15); /* прозорість */
+    backdrop-filter: blur(15px);           /* розмиття */
+    -webkit-backdrop-filter: blur(15px);    /* підтримка Safari/Mac */
     
     padding: 40px;
     border-radius: 20px;
@@ -35,14 +35,14 @@ body {
     color: white;
 }
 
-/* 3. Заголовки */
+/* заголовки */
 h1 {
     margin-bottom: 25px;
     font-weight: 600;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* 4. Поля вводу (Input) */
+/* поля вводу (іnput) */
 input[type="text"], 
 input[type="password"],
 input[type="email"] {
@@ -52,7 +52,7 @@ input[type="email"] {
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     background: rgba(255, 255, 255, 0.9);
-    box-sizing: border-box; /* Щоб падінги не вилазили за межі */
+    box-sizing: border-box; /* щоб падінги не вилазили за межі */
     font-size: 16px;
     outline: none;
     transition: 0.3s;
@@ -63,7 +63,7 @@ input:focus {
     box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
 }
 
-/* 5. Кнопка (Анімована) */
+/* кнопка (анімована) */
 input[type="submit"], 
 button {
     width: 100%;
@@ -77,20 +77,20 @@ button {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    -webkit-appearance: none; /* Для Safari на Mac */
+    -webkit-appearance: none; /* для Safari на Mac */
 }
 
 input[type="submit"]:hover {
     background-color: #27ae60;
-    transform: translateY(-3px); /* Підстрибування вгору */
+    transform: translateY(-3px); /* підстрибування вгору */
     box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
 }
 
 input[type="submit"]:active {
-    transform: translateY(0); /* Повернення при натисканні */
+    transform: translateY(0); /* повернення при натисканні */
 }
 
-/* 6. Повідомлення про помилки */
+/* повідомлення про помилки */
 .error {
     color: #ff6b6b;
     background: rgba(0, 0, 0, 0.2);
@@ -98,4 +98,20 @@ input[type="submit"]:active {
     border-radius: 8px;
     margin-bottom: 15px;
     font-size: 14px;
+}
+
+h1 {
+    color: red;
+}
+
+h2 {
+    color: blue;
+}
+
+h3 {
+    color: green;
+}
+
+h4 {
+    color: orange;
 }
