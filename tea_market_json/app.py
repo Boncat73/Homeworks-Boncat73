@@ -17,7 +17,6 @@ def save_data(data):
         json.dump(data, f, indent=4, ensure_ascii=False)
 
 # маршрути
-
 # головна сторінка
 @app.route('/')
 def index():
