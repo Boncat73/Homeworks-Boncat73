@@ -14,8 +14,8 @@ class Plant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     species = db.Column(db.String(100))
-    category = db.Column(db.String(50), default='Кімнатна')  # поділ на типи
-    status = db.Column(db.String(50), default='Доступно')    # доступно, заброньовано, обміняно
+    category = db.Column(db.String(50), default='Кімнатна')  # поділ на типи рослин
+    status = db.Column(db.String(50), default='Доступно')    # види статусів: доступно, заброньовано, обміняно
     description = db.Column(db.Text)
     care_instructions = db.Column(db.Text)
 
@@ -27,7 +27,6 @@ with app.app_context():
     db.create_all()
 
 # маршрути для користувача
-
 @app.route('/')
 def index():
     # отримуємо категорію з URL-параметра (наприклад, /?cat=Сукулент)
@@ -39,7 +38,6 @@ def index():
     return render_template('index.html', plants=plants)
 
 # маршрути для адміністратора
-
 @app.route('/admin')
 def admin_panel():
     plants = Plant.query.order_by(Plant.id).all()
