@@ -21,7 +21,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) # ініціалізуємо базу даних, прив'язуючи її до нашого додатка
 
 # пароль для входу в адмін-панель
-ADMIN_PASSWORD = 'Bn09091973Bn'
+ADMIN_PASSWORD = '23051973'
 
 # модель даних
 class Message(db.Model):
