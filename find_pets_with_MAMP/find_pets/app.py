@@ -7,20 +7,20 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = 'pet_finder_super_secret_key'
 
-# --- НАЛАШТУВАННЯ ЗАВАНТАЖЕНЬ ---
-# Вказуємо шлях до папки uploads на флешці
+# налаштування завантажень
+# вказуємо шлях до папки uploads на флешці
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-# Обмеження розміру файлу (напр. 5 МБ)
+# обмеження розміру файлу (напр. 5 МБ)
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024 
 
-# --- НАЛАШТУВАННЯ БАЗИ ДАНИХ MAMP ---
+# налаштування бази даних MAMP
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost:8889/find_pets'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# --- МОДЕЛІ ДАНИХ ---
+# моделі даних
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -33,18 +33,17 @@ class Pet(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     contact_info = db.Column(db.String(100), nullable=False)
-    image_file = db.Column(db.String(100), nullable=True) # Поле для назви фото
+    image_file = db.Column(db.String(100), nullable=True) # поле для назви фото
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-# --- МАРШРУТИ ---
-
-# 1. Головна сторінка (Read)
+# маршрути
+# головна сторінка (Read)
 @app.route('/')
 def index():
     all_pets = Pet.query.order_by(Pet.id.desc()).all()
     return render_template('index.html', pets=all_pets)
 
-# 2. Реєстрація (Create User)
+# реєстрація користувача (Create User)
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -58,7 +57,7 @@ def register():
             return "Цей логін вже зайнятий! <a href='/register'>Спробувати інший</a>"
     return render_template('register.html')
 
-# 3. Вхід (Auth)
+# вхід (Auth)
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -71,7 +70,7 @@ def login():
         return "Невірний логін або пароль! <a href='/login'>Спробувати ще раз</a>"
     return render_template('login.html')
 
-# 4. Додавання оголошення (Create Pet + Upload)
+# додавання оголошення (Create Pet + Upload)
 @app.route('/add', methods=['GET', 'POST'])
 def add_pet():
     if 'user_id' not in session:
@@ -81,7 +80,7 @@ def add_pet():
         file = request.files.get('photo')
         filename = None
         
-        # Обробка завантаження файлу
+        # обробка завантаження файлу
         if file and file.filename != '':
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -98,33 +97,33 @@ def add_pet():
         return redirect(url_for('index'))
     return render_template('add_pet.html')
 
-# 5. Видалення (Delete - тільки адмін)
+# видалення (delete - тільки адмін)
 @app.route('/admin/delete/<int:id>')
 def delete_pet(id):
     if not session.get('is_admin'):
         return "Доступ заборонено!", 403
     pet = Pet.query.get_or_404(id)
     
-    # Видаляємо фізичний файл фото, якщо він є
+    # видаляємо фізичний файл фото, якщо він є
     if pet.image_file:
         try:
             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], pet.image_file))
         except:
-            pass # Якщо файл вже видалений вручну
+            pass # якщо файл вже видалений вручну
             
     db.session.delete(pet)
     db.session.commit()
     return redirect(url_for('index'))
 
-# 6. Вихід
+# 6. вихід
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('index'))
 
-# --- ЗАПУСК ---
+# запуск
 if __name__ == '__main__':
     with app.app_context():
-        # Створюємо таблиці, якщо їх ще немає
+        # створюємо таблиці, якщо їх ще немає
         db.create_all()
     app.run(debug=True)
