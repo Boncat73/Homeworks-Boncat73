@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON & SQL Project</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Реєстрація</h2>
+        <form id="regForm">
+            <input type="text" id="username" placeholder="Логін" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Пароль" required>
+            <input type="number" id="age" placeholder="Вік">
+            <input type="text" id="city" placeholder="Місто">
+            <button type="submit">Відправити дані</button>
+        </form>
+        <p id="responseMsg"></p>
+
+        <hr>
+        
+        <h3>Зареєстровані користувачі</h3>
+        <button id="loadUsers">Оновити список вручну</button>
+        <ul id="usersList"></ul> </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
