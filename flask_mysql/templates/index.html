@@ -4,51 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Управління Студентами</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; background-color: #f8f9fa; color: #333; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h2 { border-bottom: 2px solid #007bff; padding-bottom: 10px; color: #007bff; }
-        
-        /* Стиль форми */
-        .form-group { margin-bottom: 20px; display: flex; gap: 10px; }
-        input { padding: 10px; border: 1px solid #ddd; border-radius: 5px; flex: 1; }
-        button { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        button:hover { background-color: #218838; }
-
-        /* Стиль таблиці */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; border: 1px solid #dee2e6; text-align: left; }
-        th { background-color: #007bff; color: white; }
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        tr:hover { background-color: #e9ecef; }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
 <div class="container">
-    <h2>Додати нового студента</h2>
+    <h2>➕ Додати студента</h2>
     
     <form action="/add" method="POST" class="form-group">
-        <input type="text" name="student_name" placeholder="Введіть ім'я студента" required>
-        <input type="number" name="student_grade" placeholder="Оцінка" required min="0" max="100">
-        <button type="submit">Додати в MySQL</button>
+        <input type="text" name="student_name" placeholder="Ім'я студента" required>
+        <input type="number" name="student_grade" placeholder="Оцінка (0-100)" required min="0" max="100">
+        <button type="submit" class="btn btn-add">Додати в MySQL</button>
     </form>
 
-    <h2>Список студентів у базі</h2>
+    <h2>🎓 Список студентів у базі</h2>
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Ім'я</th>
-                <th>Оцінка</th>
+                <th style="width: 10%;">ID</th>
+                <th style="width: 50%;">Ім'я</th>
+                <th style="width: 20%;">Оцінка</th>
+                <th style="width: 20%;">Дії</th>
             </tr>
         </thead>
         <tbody>
             {% for student in students %}
             <tr>
-                <td>{{ student.id }}</td>
+                <td><strong>#{{ student.id }}</strong></td>
                 <td>{{ student.name }}</td>
-                <td>{{ student.grade }}</td>
+                <td>
+                    <span style="background: #e9ecef; padding: 4px 10px; border-radius: 20px; font-weight: bold;">
+                        {{ student.grade }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{{ url_for('delete_student', id=student.id) }}" 
+                    class="btn btn-delete" 
+                    onclick="return confirm('Ви впевнені, що хочете видалити {{ student.name }}?')">
+                        Видалити
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="empty-msg">База даних порожня. Додайте першого студента вище!</td>
             </tr>
             {% endfor %}
         </tbody>
