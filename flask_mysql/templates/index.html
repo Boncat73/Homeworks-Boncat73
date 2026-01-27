@@ -33,21 +33,21 @@
                 <td><strong>#{{ student.id }}</strong></td>
                 <td>{{ student.name }}</td>
                 <td>
-                    <span style="background: #e9ecef; padding: 4px 10px; border-radius: 20px; font-weight: bold;">
+                    <span class="grade-badge">
                         {{ student.grade }}
                     </span>
                 </td>
                 <td>
                     <a href="{{ url_for('delete_student', id=student.id) }}" 
                     class="btn btn-delete" 
-                    onclick="return confirm('Ви впевнені, що хочете видалити {{ student.name }}?')">
-                        Видалити
+                    onclick="return confirm('Ви впевнені, що хочете видалити студента {{ student.name }}?')">
+                    Видалити
                     </a>
                 </td>
             </tr>
             {% else %}
             <tr>
-                <td colspan="4" class="empty-msg">База даних порожня. Додайте першого студента вище!</td>
+                <td colspan="4" class="empty-msg">База даних порожня. Додайте першого студента!</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -55,4 +55,4 @@
 </div>
 
 </body>
-</html>
+</html> 
