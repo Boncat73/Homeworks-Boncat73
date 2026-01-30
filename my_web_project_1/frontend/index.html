@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Manager Pro</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Медіа Менеджер</h1>
+    
+    <div class="upload-section">
+        <input type="file" id="fileInput">
+        <select id="typeSelect">
+            <option value="photos">Світлини</option>
+            <option value="videos">Відео</option>
+            <option value="audio">Аудіо</option>
+        </select>
+        <button onclick="uploadFile()">Завантажити</button>
+        <div id="statusMessage"></div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 25px;">
+    
+    <h3>Ваша бібліотека:</h3>
+    <div id="mediaList">
+        </div>
+</div>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>
